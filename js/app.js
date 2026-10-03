@@ -353,7 +353,6 @@ views.dashboard = () => {
   const cur = store.mainCurrency();
   const periodRecs = store.records.filter(r => inRange(r, from, to));
   const mainRecs = periodRecs.filter(r => r.valuta === cur);
-  const t = totals(mainRecs);
 
   // Riepilogo per conto (e valuta, se diverse)
   const byAcc = new Map();
@@ -392,12 +391,6 @@ views.dashboard = () => {
   const catMax = cats[0]?.[1] || 1;
 
   v.innerHTML += `
-    <div class="grid kpis section">
-      <div class="card kpi"><div class="label">Saldo · ${esc(label.toLowerCase())}</div><div class="value num ${t.bal >= 0 ? 'in' : 'out'}">${money(t.bal, cur, true)}</div></div>
-      <div class="card kpi"><div class="label">Entrate</div><div class="value num in">${money(t.inc, cur)}</div></div>
-      <div class="card kpi"><div class="label">Uscite</div><div class="value num out">${money(t.out, cur)}</div></div>
-    </div>
-
     <div class="section">
       <h2>Riepilogo per conto</h2>
       ${accounts.length ? `<div class="grid accounts">${accounts.map(a => accountCard(a, from, to)).join('')}</div>`
