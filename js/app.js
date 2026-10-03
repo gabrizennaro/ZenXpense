@@ -495,7 +495,18 @@ views.movimenti = (r) => {
   const cats = store.allCategories();
   const s = listState;
 
+  const chip = (key, val, label) =>
+    `<button class="chip" data-quick="${key}" data-val="${esc(val)}" aria-pressed="${s[key] === val}">${esc(label)}</button>`;
+
   v.innerHTML += `
+    <div class="quick-filters">
+      <div class="quick-chips" role="group" aria-label="Filtro rapido per tipo">
+        ${chip('tipo', '', 'Tutti')}${chip('tipo', 'uscita', 'Uscite')}${chip('tipo', 'entrata', 'Entrate')}
+      </div>
+      <div class="quick-chips" role="group" aria-label="Filtro rapido per conto">
+        ${chip('conto', '', 'Tutti i conti')}${conti.map(c => chip('conto', c, c)).join('')}
+      </div>
+    </div>
     <div class="filters-wrap" data-open="${s.open}">
       <div class="card">
         <div class="filters">
@@ -521,9 +532,16 @@ views.movimenti = (r) => {
     <div id="results"></div>`;
 
   const bind = (id, key, ev = 'change') => {
-    $(id, v).addEventListener(ev, e => { s[key] = e.target.value; s.limit = 150; if (key === 'dal' || key === 'al') { s.preset = ''; syncPresetChips(); } renderResults(); updateFilterCount(); });
+    $(id, v).addEventListener(ev, e => { s[key] = e.target.value; s.limit = 150; if (key === 'dal' || key === 'al') { s.preset = ''; syncPresetChips(); } syncQuickChips(); renderResults(); updateFilterCount(); });
   };
   bind('#f-dal', 'dal'); bind('#f-al', 'al'); bind('#f-conto', 'conto'); bind('#f-cat', 'cat'); bind('#f-tipo', 'tipo'); bind('#f-q', 'q', 'input');
+
+  $$('[data-quick]', v).forEach(b => b.onclick = () => {
+    const key = b.dataset.quick;
+    s[key] = b.dataset.val;
+    $(key === 'tipo' ? '#f-tipo' : '#f-conto', v).value = s[key];
+    s.limit = 150; syncQuickChips(); renderResults(); updateFilterCount();
+  });
 
   $$('[data-preset]', v).forEach(b => b.onclick = () => {
     s.preset = b.dataset.preset;
@@ -537,6 +555,9 @@ views.movimenti = (r) => {
 
 function syncPresetChips() {
   $$('[data-preset]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.preset === listState.preset)));
+}
+function syncQuickChips() {
+  $$('[data-quick]').forEach(b => b.setAttribute('aria-pressed', String(listState[b.dataset.quick] === b.dataset.val)));
 }
 function activeFilterCount() {
   const s = listState;

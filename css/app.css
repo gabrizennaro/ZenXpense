@@ -181,6 +181,7 @@ input[type="date"] { -webkit-appearance: none; appearance: none; }
 .filters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 .filters .full { grid-column: 1 / -1; }
 @media (min-width: 860px) { .filters { grid-template-columns: repeat(6, minmax(0, 1fr)); } .filters .search { grid-column: span 2; } .filters .full { grid-column: 1 / -1; } }
+.quick-filters { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
 .filters-toggle { display: none; }
 @media (max-width: 859px) {
   .filters-toggle { display: inline-flex; }
