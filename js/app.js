@@ -342,7 +342,7 @@ views.dashboard = () => {
 
   v.innerHTML = `
     <div class="page-head">
-      <h1>Dashboard</h1>
+      <h1>Home</h1>
       ${refreshButton()}
     </div>
     <div class="chips" role="group" aria-label="Periodo">
