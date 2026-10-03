@@ -515,13 +515,7 @@ views.movimenti = (r) => {
           </div>
           <label class="field">Dal<input type="date" id="f-dal" value="${s.dal}"></label>
           <label class="field">Al<input type="date" id="f-al" value="${s.al}"></label>
-          <label class="field">Conto<select id="f-conto"><option value="">Tutti</option>${conti.map(c => `<option ${c === s.conto ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select></label>
           <label class="field">Categoria<select id="f-cat"><option value="">Tutte</option>${cats.map(c => `<option ${c === s.cat ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select></label>
-          <label class="field">Tipo<select id="f-tipo">
-            <option value="">Tutti</option>
-            <option value="uscita" ${s.tipo === 'uscita' ? 'selected' : ''}>Uscite</option>
-            <option value="entrata" ${s.tipo === 'entrata' ? 'selected' : ''}>Entrate</option>
-          </select></label>
           <label class="field search">Cerca<input type="search" id="f-q" placeholder="Descrizione…" value="${esc(s.q)}"></label>
           <div class="full" style="display:flex;justify-content:flex-end">
             <button class="btn btn-sm" data-action="reset-filters">Azzera filtri</button>
@@ -534,12 +528,11 @@ views.movimenti = (r) => {
   const bind = (id, key, ev = 'change') => {
     $(id, v).addEventListener(ev, e => { s[key] = e.target.value; s.limit = 150; if (key === 'dal' || key === 'al') { s.preset = ''; syncPresetChips(); } syncQuickChips(); renderResults(); updateFilterCount(); });
   };
-  bind('#f-dal', 'dal'); bind('#f-al', 'al'); bind('#f-conto', 'conto'); bind('#f-cat', 'cat'); bind('#f-tipo', 'tipo'); bind('#f-q', 'q', 'input');
+  bind('#f-dal', 'dal'); bind('#f-al', 'al'); bind('#f-cat', 'cat'); bind('#f-q', 'q', 'input');
 
   $$('[data-quick]', v).forEach(b => b.onclick = () => {
     const key = b.dataset.quick;
     s[key] = b.dataset.val;
-    $(key === 'tipo' ? '#f-tipo' : '#f-conto', v).value = s[key];
     s.limit = 150; syncQuickChips(); renderResults(); updateFilterCount();
   });
 
@@ -561,7 +554,7 @@ function syncQuickChips() {
 }
 function activeFilterCount() {
   const s = listState;
-  return [s.dal || s.al, s.conto, s.cat, s.tipo, s.q].filter(Boolean).length;
+  return [s.dal || s.al, s.cat, s.q].filter(Boolean).length;
 }
 function updateFilterCount() {
   const b = $('[data-action="toggle-filters"]');
