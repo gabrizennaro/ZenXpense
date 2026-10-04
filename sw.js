@@ -1,5 +1,5 @@
 // Service worker: cache dell'app shell. Le chiamate ad Airtable non vengono mai messe in cache.
-const VERSION = 'zx-v8';
+const VERSION = 'zx-v9';
 const SHELL = [
   './',
   'index.html',
@@ -13,7 +13,7 @@ const SHELL = [
 ];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(VERSION).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
+  e.waitUntil(caches.open(VERSION).then(c => Promise.all(SHELL.map(u => fetch(u, { cache: 'reload' }).then(r => { if (!r.ok) throw new Error(u); return c.put(u, r); })))).then(() => self.skipWaiting()));
 });
 
 self.addEventListener('activate', e => {
@@ -31,7 +31,7 @@ self.addEventListener('fetch', e => {
   e.respondWith(
     caches.open(VERSION).then(async cache => {
       const cached = await cache.match(e.request, { ignoreSearch: true });
-      const network = fetch(e.request)
+      const network = fetch(e.request, { cache: 'no-cache' })
         .then(res => { if (res.ok) cache.put(e.request, res.clone()); return res; })
         .catch(() => cached);
       return cached || network;
