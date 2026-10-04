@@ -17,6 +17,7 @@
   --nav-w: 232px;
   --tab-h: 64px;
   --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-t: env(safe-area-inset-top, 0px);
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
@@ -77,7 +78,7 @@ a { color: var(--accent); }
 /* ---------- Layout ---------- */
 .shell { min-height: 100dvh; }
 main {
-  padding: 20px 16px calc(var(--tab-h) + var(--safe-b) + 24px);
+  padding: calc(20px + var(--safe-t)) 16px calc(var(--tab-h) + var(--safe-b) + 24px);
   max-width: 1080px;
   margin: 0 auto;
   outline: none;
