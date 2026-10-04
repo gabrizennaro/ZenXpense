@@ -177,6 +177,13 @@ input[type="date"] { -webkit-appearance: none; appearance: none; }
 .account-name { font-weight: 700; font-size: 16px; }
 .account-bal { font-size: 24px; font-weight: 700; letter-spacing: -.01em; }
 .account-row { display: flex; justify-content: space-between; font-size: 13px; }
+@media (max-width: 599px) {
+  .accounts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .account { gap: 8px; padding: 12px; }
+  .account-name { font-size: 15px; }
+  .account-bal { font-size: 19px; }
+  .account-row { font-size: 12px; gap: 6px; }
+}
 .meter { height: 6px; border-radius: 3px; background: var(--out-soft); overflow: hidden; display: flex; }
 .meter i { display: block; background: var(--in); }
 
