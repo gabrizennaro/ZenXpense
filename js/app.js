@@ -26,6 +26,7 @@ const LS = {
   token: 'zx.token',
   cache: 'zx.cache.v1',
   last: 'zx.last',
+  theme: 'zx.theme',
 };
 
 /* ---------------- Utility ---------------- */
@@ -751,6 +752,20 @@ function formView(id) {
   };
 }
 
+/* ---------------- Tema ---------------- */
+const THEMES = [['system', 'Sistema'], ['light', 'Chiaro'], ['dark', 'Scuro']];
+function applyTheme(t = lsGet(LS.theme, 'system')) {
+  const root = document.documentElement;
+  if (t === 'light' || t === 'dark') root.dataset.theme = t; else delete root.dataset.theme;
+  // Con tema forzato è attiva solo la meta theme-color corrispondente; con "sistema" valgono le media query originali.
+  $$('meta[name="theme-color"]').forEach(m => {
+    if (!m.dataset.media) m.dataset.media = m.media;
+    const isDark = m.dataset.media.includes('dark');
+    m.media = t === 'system' ? m.dataset.media : (isDark === (t === 'dark') ? 'all' : 'not all');
+  });
+}
+applyTheme();
+
 /* ---------------- Impostazioni ---------------- */
 views.impostazioni = () => {
   const v = $('#view');
@@ -758,6 +773,12 @@ views.impostazioni = () => {
   v.innerHTML = `
     <div class="page-head"><h1>Impostazioni</h1></div>
     <div class="settings">
+      <div class="card form" style="max-width:none">
+        <h2>Tema</h2>
+        <div class="seg seg3" role="group" aria-label="Tema" id="theme-seg">
+          ${THEMES.map(([k, l]) => `<button type="button" data-theme-opt="${k}" aria-pressed="${lsGet(LS.theme, 'system') === k}">${l}</button>`).join('')}
+        </div>
+      </div>
       ${has ? '' : `<div class="card"><h2 style="margin-bottom:6px">Benvenuto in ZenXpense</h2>
         <p class="hint" style="margin:0">Per iniziare collega la tua base Airtable inserendo un Personal Access Token.</p></div>`}
       <form class="card form" id="tok-form" style="max-width:none">
@@ -797,6 +818,12 @@ views.impostazioni = () => {
       </div>
       <p class="hint">Base: <code>${CFG.baseId}</code></p>
     </div>`;
+
+  $$('#theme-seg button', v).forEach(b => b.onclick = () => {
+    lsSet(LS.theme, b.dataset.themeOpt);
+    applyTheme(b.dataset.themeOpt);
+    $$('#theme-seg button', v).forEach(x => x.setAttribute('aria-pressed', x === b));
+  });
 
   const tokInput = $('#tok', v);
   tokInput.onfocus = () => { if (tokInput.value.startsWith('•')) tokInput.value = ''; };
