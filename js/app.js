@@ -603,7 +603,7 @@ function rowHtml(r) {
     <div class="date num"><b>${d || '–'}</b><small>${m ? MONTHS[+m - 1] + ' ' + y.slice(2) : ''}</small></div>
     <div style="min-width:0">
       <div class="desc">${esc(r.descr) || '<span class="muted">(senza descrizione)</span>'}</div>
-      <div class="meta"><span class="tag">${esc(r.conto || '—')}</span>${esc(r.cat)}</div>
+      <div class="meta"><span class="tag" data-acc="${esc((r.conto || '').toLowerCase())}">${esc(r.conto || '—')}</span>${esc(r.cat)}</div>
     </div>
     <div class="amt num ${sign > 0 ? 'in' : 'out'}">${money(sign * r.importo, r.valuta, true)}</div>
   </a>`;
