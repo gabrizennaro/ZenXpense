@@ -124,20 +124,24 @@ main {
   .nav .nav-add svg { width: 20px; height: 20px; padding: 0; background: none; fill: currentColor; }
   .nav .nav-add span { display: inline; font-weight: 600; }
   .brand { order: -2; }
-  .brand .wm { height: 20px; width: auto; }
-  .brand .wm-dark { display: none; }
   .sync { display: block; margin-top: auto; padding: 10px 12px; font-size: 12px; color: var(--muted); }
   main { margin-left: var(--nav-w); padding: 32px 32px 48px; max-width: calc(1080px + var(--nav-w)); }
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .brand .wm { display: none; }
-  :root:not([data-theme="light"]) .brand .wm-dark { display: block; }
+  :root:not([data-theme="light"]) .wm { display: none; }
+  :root:not([data-theme="light"]) .wm-dark { display: block; }
 }
-:root[data-theme="dark"] .brand .wm { display: none; }
-:root[data-theme="dark"] .brand .wm-dark { display: block; }
+:root[data-theme="dark"] .wm { display: none; }
+:root[data-theme="dark"] .wm-dark { display: block; }
 
 /* ---------- Common ---------- */
+.wm { height: 20px; width: auto; }
+.wm-dark { display: none; }
+.h1-logo { width: 32px; height: 32px; flex: none; }
+h1 { display: flex; align-items: center; gap: 10px; }
+h1 .wm { height: 28px; }
+
 .page-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
 .card {
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);

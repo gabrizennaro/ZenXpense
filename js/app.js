@@ -343,7 +343,7 @@ views.dashboard = () => {
 
   v.innerHTML = `
     <div class="page-head">
-      <h1>Home</h1>
+      <h1><img class="wm" src="icons/wordmark.svg" alt="ZenXpense"><img class="wm wm-dark" src="icons/wordmark-dark.svg" alt=""></h1>
       ${refreshButton()}
     </div>
     <div class="chips" role="group" aria-label="Periodo">
@@ -484,7 +484,7 @@ views.movimenti = (r) => {
 
   v.innerHTML = `
     <div class="page-head">
-      <h1>Movimenti</h1>
+      <h1><img class="h1-logo" src="icons/icon.svg" alt="">Movimenti</h1>
       <div style="display:flex;gap:8px">
         <button class="btn btn-sm filters-toggle" data-action="toggle-filters">Filtri${activeFilterCount() ? ` (${activeFilterCount()})` : ''}</button>
         ${refreshButton()}
@@ -617,7 +617,7 @@ function formView(id) {
   const v = $('#view');
   const editing = id ? store.records.find(r => r.id === id) : null;
   if (id && !editing) {
-    v.innerHTML = `<div class="page-head"><h1>Modifica</h1></div>`;
+    v.innerHTML = `<div class="page-head"><h1><img class="h1-logo" src="icons/icon.svg" alt="">Modifica</h1></div>`;
     if (!needsData(v)) v.innerHTML += `<div class="card empty">Movimento non trovato.</div>`;
     return;
   }
@@ -633,7 +633,7 @@ function formView(id) {
   const topCats = store.distinct('cat').slice(0, 8);
 
   v.innerHTML = `
-    <div class="page-head"><h1>${editing ? 'Modifica movimento' : 'Nuovo movimento'}</h1></div>
+    <div class="page-head"><h1><img class="h1-logo" src="icons/icon.svg" alt="">${editing ? 'Modifica movimento' : 'Nuovo movimento'}</h1></div>
     <form class="form card" id="mov-form" novalidate autocomplete="off">
       <div class="seg" role="group" aria-label="Tipo">
         <button type="button" data-v="uscita" aria-pressed="${m.tipo !== 'entrata'}">Uscita</button>
@@ -771,7 +771,7 @@ views.impostazioni = () => {
   const v = $('#view');
   const has = !!API.token;
   v.innerHTML = `
-    <div class="page-head"><h1>Impostazioni</h1></div>
+    <div class="page-head"><h1><img class="h1-logo" src="icons/icon.svg" alt="">Impostazioni</h1></div>
     <div class="settings">
       <div class="card form" style="max-width:none">
         <h2>Tema</h2>
