@@ -1,5 +1,5 @@
 // Service worker: cache dell'app shell. Le chiamate ad Airtable non vengono mai messe in cache.
-const VERSION = 'zx-v15';
+const VERSION = 'zx-v16';
 const SHELL = [
   './',
   'index.html',
