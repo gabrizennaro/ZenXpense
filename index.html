@@ -5,15 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>ZenXpense</title>
   <meta name="description" content="Gestione spese personali collegata ad Airtable">
-  <meta name="theme-color" content="#eae8ff" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#1e2130" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#d8dbe2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1b1b1e" media="(prefers-color-scheme: dark)">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="ZenXpense">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="icon" href="icons/favicon.ico" sizes="any">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
@@ -21,7 +25,8 @@
     <nav class="nav" aria-label="Navigazione principale">
       <div class="brand">
         <img src="icons/icon.svg" alt="" width="28" height="28">
-        <span>ZenXpense</span>
+        <img class="wm" src="icons/wordmark.svg" alt="ZenXpense">
+        <img class="wm wm-dark" src="icons/wordmark-dark.svg" alt="">
       </div>
       <a href="#/dashboard" data-route="dashboard">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13h6V4H4zm0 7h6v-5H4zm10 0h6v-9h-6zm0-16v5h6V4z"/></svg>
